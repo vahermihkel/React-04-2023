@@ -5,6 +5,8 @@ import Avaleht from './pages/Avaleht';
 import LisaToode from './pages/LisaToode';
 import Ostukorv from './pages/Ostukorv';
 import { useState } from 'react';
+import Meist from './pages/Meist';
+import Seaded from './pages/Seaded';
 
 function App() {
 
@@ -48,7 +50,8 @@ function App() {
   //     et nad oleksid erinevad välimistest    " kirjuta välja 'a' täht "     ' kirjuta välja nimi "Mihkel" '
 
   const [logimiseTekst, uuendaLogimiseTekst] = useState('Log In');
-  const [teema, uuendaTeema] = useState("hele-leht");
+                                  // kui siit tuleb null ehk tühjus   ||   võta parem pool
+  const [teema, uuendaTeema] = useState(localStorage.getItem("theme") || "hele-leht");
 
   const logIn = () => {
     if (logimiseTekst === "Log In") {
@@ -58,12 +61,22 @@ function App() {
     }
   }
 
+  const muudaTumedaks = () => {
+    uuendaTeema("tume-leht");
+    localStorage.setItem("theme", "tume-leht");
+  }
+
+  const muudaHeledaks = () => {
+    uuendaTeema("hele-leht");
+    localStorage.setItem("theme", "hele-leht")
+  }
+
   return (
     <div className={teema}>
       <button onClick={() => logIn()}>{logimiseTekst}</button>
       {/* <button>Log Out</button> */}
-      {teema === "hele-leht" && <button onClick={() => uuendaTeema("tume-leht")}>Tume leht</button>}
-      {teema === "tume-leht" && <button onClick={() => uuendaTeema("hele-leht")}>Hele leht</button>}
+      {teema === "hele-leht" && <button onClick={muudaTumedaks}>Tume leht</button>}
+      {teema === "tume-leht" && <button onClick={muudaHeledaks}>Hele leht</button>}
 
       <Link to="/">
         <img className="pilt" src="https://nobecars.com/wp-content/uploads/2022/01/Untitled-2-5-1024x473.png" alt="" />
@@ -77,17 +90,42 @@ function App() {
         <button className="nupp">Ostukorv</button>
       </Link>
 
+      <Link to="/about">
+        <button className="nupp">Meie kontaktid</button>
+      </Link>
+
+      <Link to="/settings">
+        <button className="nupp">Seaded</button>
+      </Link>
+
       {/* telia.ee    <div></div> */}
       <Routes>
         <Route path="" element={ <Avaleht /> } />
         <Route path="lisa-toode" element={ <LisaToode /> } />
         <Route path="ostukorv" element={ <Ostukorv /> } />
+        <Route path="about" element={ <Meist /> } />
+        <Route path="settings" element={ <Seaded /> } />
       </Routes>
     </div>
   );
 }
 
+// 0 euroga praktikale  2kuud ilma tasuta
+// 6kuud 725 eurot
+// 12kuud 1000 bruto
+// 18kuud 1500 bruto
+// 2a  2000 bruto
+// 3a 3000 bruto
+// 4a 4000 bruto
+
+// naljakad errorid, mingi asi ei õnnestu
+// vanemarendaja poole
+
 export default App;
+
+// KAKS KOHTA errorite vaatamiseks:
+// terminal ---> compile-time errors
+// parem klõps -> inspect -> console ---> run-time errors
 
 // ctrl + ä on kommentaar, mis nö kustutab koodi,
 //    aga jätab meile alles et hiljem vaadata
