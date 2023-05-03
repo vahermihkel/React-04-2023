@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
 
 function Seaded() {
   const [keel, uuendaKeel] = useState(localStorage.getItem("keel")); // null    ja   undefined    on tühjused
@@ -10,15 +11,42 @@ function Seaded() {
   // if / else
   const salvestaAadress = () => {
 // salvestan brauseri vahemällu: VÕTI,    VÄÄRTUS
+    if (aadressViide.current.value === "") {
+      toast.error("Tühja aadressi ei saa salvestada!");
+      return; // funktsioon siit kohast enam edasi ei lähe
+    }  // Tammsaare         t                       ===       t  /   T
+    if (aadressViide.current.value[0].toLowerCase() ===  aadressViide.current.value[0]) {
+      toast.error("Väikse algustähega aadressi ei saa salvestada!");
+      return;
+    }
     localStorage.setItem("aadress", aadressViide.current.value);
+    toast.success("Aadress salvestatud!");
   }
 
   const salvestaEmail = () => {
+    if (emailViide.current.value === "") {
+      toast.error("Tühja emaili ei saa salvestada!");
+      return;
+    } 
+    if (emailViide.current.value.includes("@") === false) {
+      toast.error("Kontrolli e-maili õigsust!");
+      return;
+    }
     localStorage.setItem("email", emailViide.current.value);
+    toast.success("Email salvestatud!");
   }
 
   const salvestaTelefon = () => {
+    if (telefonViide.current.value === "") {
+      toast.error("Tühja telefoni ei saa salvestada!");
+      return;
+    } 
+    if (/^[0-9]*$/.test(telefonViide.current.value) === false) {
+      toast.error("Telefoninumber peab koosnema numbritest!");
+      return;
+    }
     localStorage.setItem("telefon", telefonViide.current.value);
+    toast.success("Telefon salvestatud!");
   }
 
   const muudaKeelEst = () => {
@@ -62,6 +90,9 @@ function Seaded() {
       {keel === "est" && <div>Leht on eesti keelne</div>}
       {keel === "eng" && <div>Page is in English</div>}
       {keel === "rus" && <div>Pycckuj rsõk</div>}
+      <ToastContainer 
+        position="bottom-right"
+      />
     </div>
   )
 }

@@ -7,6 +7,9 @@ import Ostukorv from './pages/Ostukorv';
 import { useState } from 'react';
 import Meist from './pages/Meist';
 import Seaded from './pages/Seaded';
+import Tootajad from './pages/Tootajad';
+import Poed from './pages/Poed';
+import Hinnad from './pages/Hinnad';
 
 function App() {
 
@@ -98,6 +101,18 @@ function App() {
         <button className="nupp">Seaded</button>
       </Link>
 
+      <Link to="/tootajad">
+        <button className="nupp">Töötajad</button>
+      </Link>
+
+      <Link to="/poed">
+        <button className="nupp">Poed</button>
+      </Link>
+
+      <Link to="/hinnad">
+        <button className="nupp">Hinnad</button>
+      </Link>
+
       {/* telia.ee    <div></div> */}
       <Routes>
         <Route path="" element={ <Avaleht /> } />
@@ -105,6 +120,9 @@ function App() {
         <Route path="ostukorv" element={ <Ostukorv /> } />
         <Route path="about" element={ <Meist /> } />
         <Route path="settings" element={ <Seaded /> } />
+        <Route path="tootajad" element={ <Tootajad /> } />
+        <Route path="poed" element={ <Poed /> } />
+        <Route path="hinnad" element={ <Hinnad /> } />
       </Routes>
     </div>
   );
