@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
+import poedFailist from "../data/poed.json";
 
 function Poed() {
-  const [poed, uuendaPoed] = useState(["Ülemiste", "Viimsi", "Rocca al Mare", "Magistrali", "Vesse", "Kristiine", "Järveotsa"]);
+  const [poed, uuendaPoed] = useState(poedFailist);
+
+  const tagasi = () => {
+    uuendaPoed(poedFailist);
+  }
 
   const sorteeriAZ = () => {
     poed.sort((a,b) => a.localeCompare(b)); // SAAB TEHA KA DEFAULTI
-    uuendaPoed(poed.slice());
+    uuendaPoed(poed.slice()); // [].slice() koopia tegemiseks -> mälukoha kustutamiseks
+    // uuendaPoed([...poed]);  [...[]] koopia tegemiseks -> mälukoha kustutamiseks
   }
 
   const sorteeriZA = () => {
@@ -28,35 +34,53 @@ function Poed() {
     uuendaPoed(poed.slice());
   }
 
+  // const filtreeri = () => {
+  //       // ["Nobe", "Tesla"]       ["Nobe", "Tesla", "BMW"]      
+  //   const vastus = poed.filter(yksPood => ); 
+  //   uuendaPoed(vastus);
+  // }
+
   // suurem/võrdne kui 7 tähte
 
   // võrdne 9 tähega
 
   const filtreeriSisaldabIsLyhendit = () => {
-    const vastus = poed.sort(yksPood => yksPood.includes("is")); 
+    const vastus = poed.filter(yksPood => yksPood.includes("is")); 
     uuendaPoed(vastus);
   }
 
   const filtreeriKolmasTahtI = () => {
-    const vastus = poed.sort(yksPood => yksPood[2] === "i"); 
+    const vastus = poed.filter(yksPood => yksPood[2] === "i"); 
     uuendaPoed(vastus);
   }
 
   const filtreeriL6pebEga = () => {
-    const vastus = poed.sort(yksPood => yksPood.endsWith("e")); 
+    const vastus = poed.filter(yksPood => yksPood.endsWith("e")); 
     uuendaPoed(vastus);
   }
 
   // iga kord peab refreshi tegema kui teete ära
+  const kustuta = (jrknr) => {
+    poed.splice(jrknr, 1);
+    uuendaPoed(poed.slice());
+  }
 
   return (
     <div>
+      <br />
+      <button onClick={tagasi}>Reseti filtrid</button>
+      <div>Poode on: {poed.length} tk</div>
+      <br /><br />
       <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
       <button onClick={sorteeriZA}>Sorteeri Z-A</button>
       <button onClick={sorteeriTahedKasv}>Sorteeri tähtede arv kasvavalt</button>
       <button onClick={sorteeriTahedKah}>Sorteeri tähtede arv kahanevalt</button>
       <button onClick={sorteeriKolmasTahtAZ}>Sorteeri kolmas täht A-Z</button>
-      {poed.map(yksPood => <div>{yksPood}</div>)}
+      <br /><br />
+      <button onClick={filtreeriSisaldabIsLyhendit}>Jäta alles kellel on sõnas 'is'</button>
+      <button onClick={filtreeriKolmasTahtI}>Jäta alles kellel on kolmas täht 'i'</button>
+      <button onClick={filtreeriL6pebEga}>Jäta alles kes lõpeb 'e'ga</button>
+      {poed.map((yksPood, jrknr) => <div>{yksPood} <button onClick={() => kustuta(jrknr)}>x</button> </div>)}
     </div>
   )
 }

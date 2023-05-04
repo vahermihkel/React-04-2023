@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import tootedFailist from "../data/tooted.json";
 
 function LisaToode() {
   const [sonum, uuendaSonum] = useState("Lisa toode!");
@@ -15,6 +16,7 @@ function LisaToode() {
       uuendaSonum("Toode lisatud, nimega: " + inputiLuger.current.value);
       // document.getElementById("name").value <-- läheb kõikidest kohtadest otsima
       // useRef <-- vaatab ainult siin failis, siin componendis
+      tootedFailist.push(inputiLuger.current.value); // [].push() <--- lisab lõppu juurde selle, mis on sulgude vahel
     }
   }
 

@@ -10,6 +10,8 @@ import Seaded from './pages/Seaded';
 import Tootajad from './pages/Tootajad';
 import Poed from './pages/Poed';
 import Hinnad from './pages/Hinnad';
+import Tooted from './pages/Tooted';
+import HaldaTooted from './pages/HaldaTooted';
 
 function App() {
 
@@ -113,6 +115,14 @@ function App() {
         <button className="nupp">Hinnad</button>
       </Link>
 
+      <Link to="/tooted">
+        <button className="nupp">Tooted</button>
+      </Link>
+
+      <Link to="/halda">
+        <button className="nupp">Halda tooteid</button>
+      </Link>
+
       {/* telia.ee    <div></div> */}
       <Routes>
         <Route path="" element={ <Avaleht /> } />
@@ -123,6 +133,8 @@ function App() {
         <Route path="tootajad" element={ <Tootajad /> } />
         <Route path="poed" element={ <Poed /> } />
         <Route path="hinnad" element={ <Hinnad /> } />
+        <Route path="tooted" element={ <Tooted /> } />
+        <Route path="halda" element={ <HaldaTooted /> } />
       </Routes>
     </div>
   );
@@ -152,3 +164,9 @@ export default App;
 // isesulguv self-closing: img, input, Route
 
 // KÕIK mis on HTMLs suure tähega ja rohelisega, peab importima
+
+// 25
+// 26 3ak/h
+// 27
+// 2
+// 4

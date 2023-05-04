@@ -31,6 +31,11 @@ function Tootajad() {
     uuendaKogusumma(summa);
   }
 
+  const kustuta = (i) => {
+    tootajad.splice(i,1);
+    uuendaTootajad(tootajad.slice());
+  }
+
   return (
     <div>
       <div>Kõik tähed kokku: {kogusumma} tk</div>
@@ -38,7 +43,7 @@ function Tootajad() {
       <br /><br />
       <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
       <button onClick={filtreeriKellelOnRohkemKui12Tahte}>Jäta alles kellel on rohkem kui 12 tähte</button>
-      { tootajad.map(e => <div>{e}</div>) }
+      { tootajad.map((e, i) => <div>{e} <button onClick={() => kustuta(i)}>x</button> </div>) }
       {/* <div>Maret Maripuu</div>
       <div>Meeli Miidla-Vanatalu</div>
       <div>Vadim Ivanov</div>

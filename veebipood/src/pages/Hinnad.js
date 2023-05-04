@@ -22,6 +22,11 @@ function Hinnad() {
     uuendaKogusumma(summa);
   }
 
+  const kustuta = (ix) => {
+    hinnad.splice(ix,1);
+    uuendaHinnad(hinnad.slice());
+  }
+
   return (
     <div>
       <div>Kogusumma: {kogusumma} €</div>
@@ -29,9 +34,14 @@ function Hinnad() {
       <br /><br />
       <button onClick={sorteeriKasvavalt}>Sorteeri kasvavalt</button>
       <button onClick={filtreeriVaiksemKui100}>Jäta alles väiksemad kui 100</button>
-      { hinnad.map(el => <div>{el}</div>) }
+      { hinnad.map((el, ix) => <div>{el} <button onClick={() => kustuta(ix)}>x</button> </div>) }
     </div>
   )
 }
+
+// const eesliidesega: const [tooted, uuendaTooted]     const [sonum, uuendaSonum]     const email = "email"
+// let eesliidesega: let summa = 0;    let koguarv = 0;
+// [].funktsioon( SIIN =>
+// const funktsioon = (SIIN) =>
 
 export default Hinnad
