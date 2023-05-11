@@ -12,6 +12,8 @@ import Poed from './pages/Poed';
 import Hinnad from './pages/Hinnad';
 import Tooted from './pages/Tooted';
 import HaldaTooted from './pages/HaldaTooted';
+import YksikToode from './pages/YksikToode';
+import MuudaToode from './pages/MuudaToode';
 
 function App() {
 
@@ -135,6 +137,8 @@ function App() {
         <Route path="hinnad" element={ <Hinnad /> } />
         <Route path="tooted" element={ <Tooted /> } />
         <Route path="halda" element={ <HaldaTooted /> } />
+        <Route path="toode/:index" element={ <YksikToode /> } />
+        <Route path="muuda/:jrknr" element={ <MuudaToode /> } />
       </Routes>
     </div>
   );

@@ -33,3 +33,13 @@
   background-color: rgb(247, 249, 250);
   min-height: 100vh;
 }
+
+.aktiivne {
+  border: 1px solid green;
+  background-color: rgb(240, 244, 240);
+}
+
+.mitteaktiivne {
+  border: 1px solid red;
+  background-color: rgb(244, 241, 241);
+}
