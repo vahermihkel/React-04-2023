@@ -5,6 +5,12 @@ function Cart() {
 
   // Tühjendamine ostukorvist
   // emptyCart()
+  // cartFromFile = [];
+  // setCart(cartFromFile.slice());
+
+  // cartFromFile.splice(0);
+  // setCart(cartFromFile.slice());
+
 
   // Kustutamine ostukorvist
   // removeFromCart()

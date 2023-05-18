@@ -17,3 +17,22 @@
 .lang:active {
   padding: 1px;
 }
+
+.map {
+  height: 350px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+}
