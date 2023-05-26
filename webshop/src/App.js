@@ -64,7 +64,7 @@ function App() {
         <Route path="cart" element={ <Cart /> } />
         <Route path="shops" element={ <Shops /> } />
         <Route path="contact" element={ <ContactUs /> } />
-        <Route path="product" element={ <SingleProduct /> } />
+        <Route path="product/:id" element={ <SingleProduct /> } />
         <Route path="admin" element={ <AdminHome /> } />
         <Route path="admin/add-product" element={ <AddProduct /> } />
         <Route path="admin/edit-product/:id" element={ <EditProduct /> } />
@@ -79,3 +79,16 @@ function App() {
 }
 
 export default App;
+
+// 25.05  
+// AddProduct: ID unikaalsuse kontroll -> EditProductis näidata ühte anomaaliat
+// EditProduct: Kontrollid peale if ()
+// MaintainProducts: active kasutusele -> mitteaktiivne, siis punane taust
+// HomePage: mitteaktiivne, siis ära näita
+// HomePage: Funktsiooni taaskasutamine filtreerimise osas
+
+// 30.05
+// API päring -> võtame kõik pakiautomaadid
+// API päring -> andmebaas, kategooriad andmebaasi
+// API päring -> tooted andmebaasi
+// 

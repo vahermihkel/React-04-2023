@@ -1,0 +1,26 @@
+[
+  {
+    "kogus": 5, 
+    "toode": {
+      "id": 13505234,
+      "image": "https://i.ebayimg.com/thumbs/images/g/oqwAAOSwsRxjexU7/s-l225.webp",
+      "name": "1980 Harley-Davidson Street",
+      "price": 2500,
+      "description": "1980 Harley-Davidson Street ",
+      "category": "motorcycle",
+      "active": true
+    }
+  },
+  {
+    "kogus": 2, 
+    "toode": {
+      "id": 79083260,
+      "image": "https://i.ebayimg.com/thumbs/images/g/rg4AAOSwsZpjeTQs/s-l225.webp",
+      "name": "1970 Pontiac Firebird",
+      "price": 27000,
+      "description": "1970 Pontiac Firebird ",
+      "category": "motors",
+      "active": true
+    }
+  }
+]

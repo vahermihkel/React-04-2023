@@ -21,6 +21,18 @@ function EditProduct() {
   const [idUnique, setIdUnique] = useState(true);
 
   const changeProduct = () => {
+    if (idRef.current.value === "") {
+      return;
+    }
+    if (nameRef.current.value === "") {
+      return;
+    }
+    if (priceRef.current.value === "") {
+      return;
+    }
+    if (Number(priceRef.current.value) <= 0) {
+      return;
+    }
     const updatedProduct = {
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
@@ -48,6 +60,11 @@ function EditProduct() {
     // } else {
     //   setIdUnique(false);
     // }
+
+    if (idRef.current.value === id) {
+      setIdUnique(true);
+      return;
+    }
 
     const index = productsFromFile.findIndex(element => element.id === Number(idRef.current.value));
     if (index === -1) {
