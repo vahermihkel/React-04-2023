@@ -13,7 +13,7 @@ function MaintainProducts() {
     setProducts(productsFromFile.slice());
   }
 
-  const searchFromProducts = () => {
+  const searchFromProducts = () => { // KODUS: TÕSTUTUNDLIKKUS ÄRA KAOTADA
     const result = productsFromFile.filter(element => element.name.includes(searchedRef.current.value));
     setProducts(result);
   }

@@ -20,22 +20,21 @@ import { useTranslation } from 'react-i18next';
 
 function App() {
 
-  // Tõlkige mis leiate, et võiks tõlkida
-
-  // React-toastify peale - 
-  // * nt ostukorvi lisades tulla toast
-  // * nt toodet juurde lisades tulla toast
-
   const { t, i18n } = useTranslation();
 
-  const languageToEn = () => {
-    i18n.changeLanguage("en");
-    localStorage.setItem("language","en");
-  }
+  // const languageToEn = () => {
+  //   i18n.changeLanguage("en");
+  //   localStorage.setItem("language","en");
+  // }
 
-  const languageToEe = () => {
-    i18n.changeLanguage("ee");
-    localStorage.setItem("language","ee");
+  // const languageToEe = () => {
+  //   i18n.changeLanguage("ee");
+  //   localStorage.setItem("language","ee");
+  // }
+
+  const languageChange = (languageClicked) => {
+    i18n.changeLanguage(languageClicked);
+    localStorage.setItem("language",languageClicked);
   }
 
   return (
@@ -51,8 +50,8 @@ function App() {
               <Nav.Link as={Link} to="/shops">{t("shops")}</Nav.Link>
             </Nav>
             <Nav>
-              <img className="lang" src="/english.png" onClick={languageToEn} alt="" />
-              <img className="lang" src="/estonian.png" onClick={languageToEe} alt="" />
+              <img className="lang" src="/english.png" onClick={() => languageChange("en")} alt="" />
+              <img className="lang" src="/estonian.png" onClick={() => languageChange("ee")} alt="" />
               <Nav.Link as={Link} to="/cart">{t("cart")}</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -89,6 +88,8 @@ export default App;
 
 // 30.05
 // API päring -> võtame kõik pakiautomaadid
+
+// REEDEL:
 // API päring -> andmebaas, kategooriad andmebaasi
 // API päring -> tooted andmebaasi
 // 
