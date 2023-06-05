@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "react-bootstrap";
 import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 
 function AddProduct() {
   const [message, setMessage] = useState("Add new product!");
@@ -13,6 +14,13 @@ function AddProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []));
+  }, []);
 
   const add = () => {
     if (idRef.current.value === "") {
@@ -45,6 +53,13 @@ function AddProduct() {
         "active": activeRef.current.checked
       });
       toast.success("New product added!");
+      idRef.current.value = "";
+      imageRef.current.value = "";
+      nameRef.current.value = "";
+      priceRef.current.value = "";
+      descriptionRef.current.value = "";
+      categoryRef.current.value = "";
+      activeRef.current.checked = false;
     // }
   };
 
@@ -75,7 +90,10 @@ function AddProduct() {
        <label>New Image</label> <br />
        <input ref={imageRef} type="text" /> <br />
        <label>New Category</label> <br />
-       <input ref={categoryRef} type="text"  /> <br />
+       {/* <input ref={categoryRef} type="text"  /> <br /> */}
+       <select ref={categoryRef}>
+          {categories.map(category => <option key={category.name}>{category.name}</option>)}
+       </select> <br />
        <label>Active</label> <br />
        <input ref={activeRef} type="checkbox"  /> <br />
        <Button onClick={add} disabled={idUnique === false}>Add Product</Button>

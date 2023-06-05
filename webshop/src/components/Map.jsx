@@ -14,6 +14,9 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 function Map(props) { 
 
+  // SIIT USEEFFECT VÕTAN KÕIK POED ANDMEBAASIST
+
+
   return (
   <div>
 
@@ -38,6 +41,10 @@ function Map(props) {
           Tasku keskus. <br /> Avatud 10-21
         </Popup>
       </Marker>
+      {/* NENDE KOLME MARKERI ASEMEL KUVAN VÄLJA OTSE ANDMEBAASIST
+      shops.map(shop => <Marker><Marker/>)
+      
+      */}
     </MapContainer>
   </div>)
 }

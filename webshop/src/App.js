@@ -86,10 +86,36 @@ export default App;
 // HomePage: mitteaktiivne, siis ära näita
 // HomePage: Funktsiooni taaskasutamine filtreerimise osas
 
-// 30.05
+// 30.05   13
 // API päring -> võtame kõik pakiautomaadid
 
-// REEDEL:
+// 02.06:  14
 // API päring -> andmebaas, kategooriad andmebaasi
+
+// KOJU: EditProductis kategooria dropdownist
+//       MaintainShops.jsx terve fail MaintainCategories.jsx järgi    
+//       Shops.jsx HomePage.jsx järgi nagu kategooriad
+//       Map.jsx Markerite asendus
+// 06.06:  15
 // API päring -> tooted andmebaasi
-// 
+// Loaderid
+
+// 08.06:  16
+// API päring: Makse
+// Components: Tekitame alamfaile
+// CSS moodulid
+
+// 13.06:  17
+// UseContext ehk globaalne muutuja: ostukorvi kogusumma näitamisega Navbaris
+// UseContext sisselogimise ja registreerumise võtmes
+
+// 15.06:  18
+// Sisselogimise ja registreerumise jätk
+// Näitan teile bakery-shop lahendust (enne proovige ise lõpuni välja teha)
+
+
+// 29.06: lõpuprojekti esitlemine (teie näitate)
+
+// Lõpuprojekt: Reactis
+// Variandid: Võetud Youtube video/ Udemy videoseeria -> modifitseeritud
+// Ise välja mõelda nullist

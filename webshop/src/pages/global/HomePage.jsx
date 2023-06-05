@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import productsFromFile from "../../data/products.json"; //../../ läheb 2 kausta üles
 // import cartFromFile from "../../data/cart.json";
 import "../../css/HomePage.css";
 import { useTranslation } from "react-i18next";
+import config from "../../data/config.json";
 
 function Homepage() {
   const [products, setProduct] = useState(productsFromFile);
-
   const { t } = useTranslation();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []));
+  }, []);
 
   const AZ = () => {
     products.sort((a, b) => a.name.localeCompare(b.name));
@@ -85,12 +92,17 @@ function Homepage() {
       <button onClick={ZA}>{t("Sort Z-A")}</button>
       <button onClick={sortPriceAsc}>{t("Price Ascending")}</button>
       <button onClick={sortPriceDesc}>{t("Price Descending")}</button>
-      <button onClick={() => filterByCategory("tent")}>{t("Category Tent")}</button>
+      {/* <button onClick={() => filterByCategory("tent")}>{t("Category Tent")}</button>
       <button onClick={() => filterByCategory("camping")}>{t("Category Camping")}</button>
       <button onClick={() => filterByCategory("motors")}>{t("Category Motors")}</button>
       <button onClick={() => filterByCategory("motorcycle")}>
         {t("Category Motorcycle")}
-      </button>
+      </button> */}
+      {categories.map(category => 
+        <button key={category.name} onClick={() => filterByCategory(category.name)}>
+          {category.name}
+        </button>
+      )}
       <div>{products.length}</div>
       <div className="products">
         {products.filter(e => e.active === true).map((product, id) => (
