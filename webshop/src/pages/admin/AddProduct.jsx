@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "react-bootstrap";
-import productsFromFile from "../../data/products.json";
+//import productsFromFile from "../../data/products.json";
 import config from "../../data/config.json";
 
 function AddProduct() {
@@ -15,8 +15,14 @@ function AddProduct() {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [idUnique, setIdUnique] = useState(true);
 
   useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => setProducts(json || []));
+
     fetch(config.categoriesDbUrl)
       .then(res => res.json())
       .then(json => setCategories(json || []));
@@ -39,11 +45,15 @@ function AddProduct() {
       setMessage("Product can't add with empty price!");
       return;
     }
+    if (categoryRef.current.value === "") {
+      setMessage("You have to choose a category!");
+      return;
+    }
     // if (nameRef.current.value === "") {
     //   setMessage("Product can t add with empty name!");
     // } else {
       setMessage("Product add: " + nameRef.current.value);
-      productsFromFile.push({
+      products.push({
         "id": Number(idRef.current.value),
         "image": imageRef.current.value,
         "name": nameRef.current.value,
@@ -61,12 +71,11 @@ function AddProduct() {
       categoryRef.current.value = "";
       activeRef.current.checked = false;
     // }
+      fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(products)});
   };
 
-  const [idUnique, setIdUnique] = useState(true);
-
   const checkIdUniqueness = () => {
-    const index = productsFromFile.findIndex(element => Number(idRef.current.value) === element.id);
+    const index = products.findIndex(element => Number(idRef.current.value) === element.id);
     if (index === -1) {
       setIdUnique(true);
       setMessage("");
@@ -92,6 +101,7 @@ function AddProduct() {
        <label>New Category</label> <br />
        {/* <input ref={categoryRef} type="text"  /> <br /> */}
        <select ref={categoryRef}>
+          <option value="">Vali kategooria!</option>
           {categories.map(category => <option key={category.name}>{category.name}</option>)}
        </select> <br />
        <label>Active</label> <br />

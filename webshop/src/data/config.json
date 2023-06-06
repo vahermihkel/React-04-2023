@@ -1,4 +1,5 @@
 {
   "categoriesDbUrl": "https://react-04-2023-default-rtdb.europe-west1.firebasedatabase.app/categories.json",
-  "shopsDbUrl": "https://react-04-2023-default-rtdb.europe-west1.firebasedatabase.app/shops.json"
+  "shopsDbUrl": "https://react-04-2023-default-rtdb.europe-west1.firebasedatabase.app/shops.json",
+  "productsDbUrl": "https://react-04-2023-default-rtdb.europe-west1.firebasedatabase.app/products.json"
 }

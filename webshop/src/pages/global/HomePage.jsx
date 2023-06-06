@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import productsFromFile from "../../data/products.json"; //../../ läheb 2 kausta üles
+//import productsFromFile from "../../data/products.json"; //../../ läheb 2 kausta üles
 // import cartFromFile from "../../data/cart.json";
 import "../../css/HomePage.css";
 import { useTranslation } from "react-i18next";
 import config from "../../data/config.json";
 
 function Homepage() {
-  const [products, setProduct] = useState(productsFromFile);
+  const [products, setProducts] = useState([]);
   const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        setProducts(json || []);
+        setLoading(false);
+      });
+
     fetch(config.categoriesDbUrl)
       .then(res => res.json())
       .then(json => setCategories(json || []));
@@ -20,22 +28,22 @@ function Homepage() {
 
   const AZ = () => {
     products.sort((a, b) => a.name.localeCompare(b.name));
-    setProduct(products.slice());
+    setProducts(products.slice());
   };
 
   const ZA = () => {
     products.sort((a, b) => b.name.localeCompare(a.name));
-    setProduct(products.slice());
+    setProducts(products.slice());
   };
 
   const sortPriceAsc = () => {
     products.sort((a, b) => a.price - b.price);
-    setProduct(products.slice());
+    setProducts(products.slice());
   };
 
   const sortPriceDesc = () => {
     products.sort((a, b) => b.price - a.price);
-    setProduct(products.slice());
+    setProducts(products.slice());
   };
 
   // const filterByCategoryTent = () => {
@@ -67,10 +75,13 @@ function Homepage() {
   // };
 
    const filterByCategory = (categoryClicked) => {
-    const result = productsFromFile.filter((product) =>
+    // HILJEM MUUTMA ---> products
+    // products 240 toodet  ---> filterdatakse kõik mootorrattad (61 tk jääb alles)
+    // products 61 toodet (kõik on mootorrattad) --> filterdatakse kõik telgid (0 jääb alles)
+    const result = products.filter((product) =>
       product.category.includes(categoryClicked)
     );
-    setProduct(result);
+    setProducts(result);
   };
 
   const add = (productClicked) => {
@@ -84,6 +95,10 @@ function Homepage() {
     localStorage.setItem("cart", JSON.stringify(cartLS) );
     toast.success("Product added!");
   };
+
+  if (loading === true) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>

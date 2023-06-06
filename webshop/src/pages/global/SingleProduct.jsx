@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 // import { t } from "i18next";
 
 function SingleProduct() {
+  // KODUS: Võtta andmebaasist toode
+
   const { t } = useTranslation();
   const { id } = useParams();
   const result = productsFromFile.find((product) => product.id === Number(id));
@@ -24,6 +26,7 @@ function SingleProduct() {
     });
   };
 
+  // KODUS: Kui "result" on undefined, siis öelda, et toodet ei leitud
   return (
     <div>
       <div>ID: {id}</div>
