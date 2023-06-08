@@ -3,12 +3,14 @@ import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 //import productsFromFile from "../../data/products.json"; //../../ läheb 2 kausta üles
 // import cartFromFile from "../../data/cart.json";
-import "../../css/HomePage.css";
+import styles from "../../css/HomePage.module.css";
 import { useTranslation } from "react-i18next";
 import config from "../../data/config.json";
+import FilterButtons from "../../components/home/FilterButtons";
 
 function Homepage() {
   const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
   const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,6 +20,7 @@ function Homepage() {
       .then(res => res.json())
       .then(json => {
         setProducts(json || []);
+        setDbProducts(json || []);
         setLoading(false);
       });
 
@@ -74,16 +77,6 @@ function Homepage() {
   //   setProduct(result);
   // };
 
-   const filterByCategory = (categoryClicked) => {
-    // HILJEM MUUTMA ---> products
-    // products 240 toodet  ---> filterdatakse kõik mootorrattad (61 tk jääb alles)
-    // products 61 toodet (kõik on mootorrattad) --> filterdatakse kõik telgid (0 jääb alles)
-    const result = products.filter((product) =>
-      product.category.includes(categoryClicked)
-    );
-    setProducts(result);
-  };
-
   const add = (productClicked) => {
     const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
     const index = cartLS.findIndex(element => element.product.id === productClicked.id);
@@ -113,18 +106,18 @@ function Homepage() {
       <button onClick={() => filterByCategory("motorcycle")}>
         {t("Category Motorcycle")}
       </button> */}
-      {categories.map(category => 
-        <button key={category.name} onClick={() => filterByCategory(category.name)}>
-          {category.name}
-        </button>
-      )}
+     <FilterButtons
+        dbProducts={dbProducts}
+        setProducts={setProducts}
+        categories={categories}
+     />
       <div>{products.length}</div>
-      <div className="products">
+      <div className={styles.products}>
         {products.filter(e => e.active === true).map((product, id) => (
-          <div key={product.id} className="product">
+          <div key={product.id} className={styles.product}>
             <Link to={"/product/" + product.id}>
               <img src={product.image} alt="" />
-              <div className="name">{product.name}</div>
+              <div className={styles.name}>{product.name}</div>
               <div>{product.price} €</div>
             </Link>
             <button onClick={() => add(product)}>{t("Add to cart")}</button>

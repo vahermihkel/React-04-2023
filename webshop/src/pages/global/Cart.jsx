@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import cartFromFile from "../../data/cart.json";
 // import { t, use } from "i18next";
 import { useTranslation } from "react-i18next";
 // import omnivaFromFile from "../../data/omniva.json";
-import "../../css/Cart.css";
+import styles from "../../css/Cart.module.css";
+import ParcelMachines from "../../components/cart/ParcelMachines";
+import Payment from "../../components/cart/Payment";
 
 function Cart() {
   // use <--- Reacti hookid
@@ -20,19 +22,7 @@ function Cart() {
 
   const { t } = useTranslation();
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
-  const [parcelMachines, setParcelMachines] = useState([]); // 5, 10, 100, 15, 90, 40
-  const [dbParcelMachines, setDbParcelMachines] = useState([]); // 1209
-  const searchedRef = useRef();
-
-  // uef
-  useEffect(() => {
-    fetch("https://www.omniva.ee/locations.json") // 0.5sekundit aega
-      .then(res => res.json())
-      .then(json => {
-        setParcelMachines(json || []);
-        setDbParcelMachines(json || []);
-      })
-  }, []);
+  
 
   const removeFromCart = (index) => {
     cart.splice(index, 1);
@@ -66,13 +56,6 @@ function Cart() {
     localStorage.setItem("cart", JSON.stringify([])); // muudab salvestust
   };
 
-  const searchFromPMs = () => {
-    const result = dbParcelMachines.filter(pm => 
-      pm.NAME.toLowerCase().replace("õ", "o")
-        .includes(searchedRef.current.value.toLowerCase().replace("õ", "o")));
-    setParcelMachines(result);
-  }
-
   return (
     <div>
       {cart.length !== 0 && <button onClick={emptyCart}>{t("empty-cart")}</button>}
@@ -87,30 +70,25 @@ function Cart() {
         </div>
       )}
       {cart.map((element, index) => (
-        <div className="cart-product" key={index}>
-          <img className="image" src={element.product.image} alt="" />
-          <div className="name">{element.product.name}</div>
-          <div className="price">{element.product.price} €</div>
-          <div className="quantity">
-            <img className="button" onClick={() => decreaseQuantity(index)} src="/minus.png" alt="" />
+        <div className={styles.product} key={index}>
+          <img className={styles.image} src={element.product.image} alt="" />
+          <div className={styles.name}>{element.product.name}</div>
+          <div className={styles.price}>{element.product.price} €</div>
+          <div className={styles.quantity}>
+            <img className={styles.button} onClick={() => decreaseQuantity(index)} src="/minus.png" alt="" />
             <div>{element.quantity} pcs</div>
-            <img className="button" onClick={() => increaseQuantity(index)} src="/plus.png" alt="" />
+            <img className={styles.button} onClick={() => increaseQuantity(index)} src="/plus.png" alt="" />
           </div>
-          <div className="total">{element.product.price * element.quantity} €</div>
-          <img className="button" onClick={() => removeFromCart(index)} src="/remove.png" alt="" />
+          <div className={styles.total}>{element.product.price * element.quantity} €</div>
+          <img className={styles.button} onClick={() => removeFromCart(index)} src="/remove.png" alt="" />
         </div>
       ))}
 
       {cart.length > 0 && 
         <div>
           <div>{t("total")}: {calculateCartSum()} €.</div>
-          <input type="text" ref={searchedRef} onChange={searchFromPMs}  />
-          <select>
-            {parcelMachines
-              .filter(pm => pm.ZIP !== "96331")
-              .filter(pm => pm.A0_NAME === "EE")
-              .map(pm => <option key={pm.NAME}>{pm.NAME}</option>)}
-          </select>
+          <ParcelMachines />
+          <Payment sum={calculateCartSum()} />
         </div>}
 
       {cart.length === 0 && (
