@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 // import cartFromFile from "../../data/cart.json";
 // import { t, use } from "i18next";
@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import styles from "../../css/Cart.module.css";
 import ParcelMachines from "../../components/cart/ParcelMachines";
 import Payment from "../../components/cart/Payment";
+import { CartSumContext } from "../../store/CartSumContext";
 
 function Cart() {
   // use <--- Reacti hookid
@@ -22,12 +23,14 @@ function Cart() {
 
   const { t } = useTranslation();
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const { setCartSum } = useContext(CartSumContext);
   
 
   const removeFromCart = (index) => {
     cart.splice(index, 1);
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartSum(calculateCartSum());
   };
 
   const decreaseQuantity = (index) => {
@@ -37,12 +40,14 @@ function Cart() {
     }
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartSum(calculateCartSum());
   }
 
   const increaseQuantity = (index) => {
     cart[index].quantity++;
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartSum(calculateCartSum());
   }
 
   const calculateCartSum = () => {
@@ -54,6 +59,7 @@ function Cart() {
   const emptyCart = () => {
     setCart([]); // muudab HTMLi
     localStorage.setItem("cart", JSON.stringify([])); // muudab salvestust
+    setCartSum("0.00");
   };
 
   return (

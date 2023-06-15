@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react'
 
 function FilterButtons(props) {
@@ -15,9 +16,9 @@ function FilterButtons(props) {
   return (
     <div>
        {props.categories.map(category => 
-        <button key={category.name} onClick={() => filterByCategory(category.name)}>
+        <Button variant="outlined" key={category.name} onClick={() => filterByCategory(category.name)}>
           {category.name}
-        </button>
+        </Button>
       )}
     </div>
   )

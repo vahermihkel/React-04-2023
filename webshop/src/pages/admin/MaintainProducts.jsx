@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "../../css/MaintainProducts.css";
 import config from "../../data/config.json";
+import SortButtons from '../../components/home/SortButtons';
 
 function MaintainProducts() {
   const [products, setProducts] = useState([]); // kõikuv suurus --> kord on 3 toodet, kord on 60 toodet, 244 toodet, 10 toodet
@@ -44,6 +45,7 @@ function MaintainProducts() {
     <div>
       <input onChange={searchFromProducts} ref={searchedRef} type="text" />
       <span>{products.length} tk</span>
+      <SortButtons products={products} setProducts={setProducts} />
       <table>
         <thead>
           <tr>
